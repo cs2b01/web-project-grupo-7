@@ -2,20 +2,28 @@ from sqlalchemy import Column, Integer, String, Sequence, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from database import connector
 
-class User(connector.Manager.Base):
-    __tablename__ = 'users'
-    id = Column(Integer, Sequence('user_id_seq'), primary_key=True)
+class Restaurant(connector.Manager.Base):
+    __tablename__ = 'restaurants'
+    id = Column(Integer, Sequence('book_id_seq'), primary_key=True)
     name = Column(String(50))
-    fullname = Column(String(50))
-    password = Column(String(12))
-    username = Column(String(12))
+    owner = Column(String(12))
+    address = Column(String(120))
+    phone_number = Column(String(120))
 
-class Message(connector.Manager.Base):
-    __tablename__ = 'messages'
-    id = Column(Integer, Sequence('message_id_seq'), primary_key=True)
-    content = Column(String(500))
-    sent_on = Column(DateTime(timezone=True))
-    user_from_id = Column(Integer, ForeignKey('users.id'))
-    user_to_id = Column(Integer, ForeignKey('users.id'))
-    user_from = relationship(User, foreign_keys=[user_from_id])
-    user_to = relationship(User, foreign_keys=[user_to_id])
+class Plate(connector.Manager.Base):
+    __tablename__ = 'plate'
+    id = Column(Integer, Sequence('book_id_seq'), primary_key=True)
+    restaurant_id = Column(Integer, ForeignKey('restaurants.id'))
+    name = Column(String(50))
+    ingredients = Column(String(12))
+    price = Column(String(120))
+    restaurant = relationship(Restaurant)
+
+class Employers(connector.Manager.Base):
+    __tablename__ = 'employers'
+    id = Column(Integer, Sequence('book_id_seq'), primary_key=True)
+    restaurant_id = Column(Integer, ForeignKey('restaurants.id'))
+    name = Column(String(50))
+    lastname = Column(String(12))
+    position = Column(String(12))
+    restaurant = relationship(Restaurant)
