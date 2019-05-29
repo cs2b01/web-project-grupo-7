@@ -43,9 +43,18 @@ def nuevo_restaurante():
         db_session.commit()
         return redirect(url_for('restaurantes'))
 
+@app.route("/restaurantes/<_id>/delete", methods=['POST','GET'])
+def borrar_restaurante(_id):
+    db_session = db.getSession(engine)
+    restaurante = db_session.query(entities.Restaurant).filter_by(id=_id).one()
+    db_session.delete(restaurante)
+    db_session.commit()
+    return redirect(url_for('restaurantes'))
+
 @app.route("/restaurantes/<id>/menu")
 def menu(id):
     return render_template('menu.html')
+
 
 @app.route("/restaurantes/<id>/menu/new")
 def nuevo_menu(id):
