@@ -19,7 +19,7 @@ class Plate(connector.Manager.Base):
     restaurant_id = Column(Integer, ForeignKey('restaurants.id'))
     restaurant = relationship(Restaurant)
 
-class Employers(connector.Manager.Base):
+class Employee(connector.Manager.Base):
     __tablename__ = 'employers'
     id = Column(Integer, Sequence('book_id_seq'), primary_key=True)
     name = Column(String(50), nullable=False)
