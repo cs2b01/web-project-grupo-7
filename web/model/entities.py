@@ -4,7 +4,7 @@ from database import connector
 
 class Restaurant(connector.Manager.Base):
     __tablename__ = 'restaurants'
-    id = Column(Integer, Sequence('book_id_seq'), primary_key=True)
+    id = Column(Integer, Sequence('restaurant_id_seq'), primary_key=True)
     name = Column(String(50), nullable=False)
     owner = Column(String(12), nullable=False)
     address = Column(String(120), nullable=False)
@@ -12,7 +12,7 @@ class Restaurant(connector.Manager.Base):
 
 class Plate(connector.Manager.Base):
     __tablename__ = 'plate'
-    id = Column(Integer, Sequence('book_id_seq'), primary_key=True)
+    id = Column(Integer, Sequence('plate_id_seq'), primary_key=True)
     name = Column(String(50), nullable=False)
     ingredients = Column(String(12))
     price = Column(String(120))
@@ -21,7 +21,7 @@ class Plate(connector.Manager.Base):
 
 class Employee(connector.Manager.Base):
     __tablename__ = 'employers'
-    id = Column(Integer, Sequence('book_id_seq'), primary_key=True)
+    id = Column(Integer, Sequence('employee_id_seq'), primary_key=True)
     name = Column(String(50), nullable=False)
     lastname = Column(String(12), nullable=False)
     position = Column(String(12), nullable=False)
