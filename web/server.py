@@ -11,7 +11,6 @@ engine = db.createEngine()
 
 
 app = Flask(__name__)
-
 @app.route("/index/")
 def main():
     return render_template('index.html')
@@ -19,6 +18,11 @@ def main():
 @app.route("/")
 def home():
     return render_template('home.html')
+
+@app.route("/<request>")
+def request(request):
+    return render_template(request)
+
 
 @app.route("/restaurantes/")
 def restaurantes():
