@@ -29,7 +29,7 @@ def restaurantes():
 @app.route("/personal/")
 def personal():
     db_session = db.getSession(engine)
-    employees = db_session.query(entities.Employee).all()
+    employees = db_session.query(entities.Employee).order_by(entities.Employee.restaurant_id.asc())
     return render_template('personal.html', employees=employees)
 
 @app.route("/restaurantes/<id>")
