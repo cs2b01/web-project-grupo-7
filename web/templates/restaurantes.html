@@ -1,6 +1,3 @@
-{%for i in restaurantes%}
-<p>{{i[0]}}</p>
-{%endfor%}
 <html lang="en">
 <head>
     <title>Pagina Home</title>
@@ -15,9 +12,10 @@
 <body background="/static/images/background.jpg" class="hola">
     <nav>
     <div class="nav-wrapper white ">
-      <a href="/home.html" class="brand-logo black-text">Nombre de restaurante</a>
+      <a href="/home" class="brand-logo black-text">Home</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li class="movido"><a href="/restaurantes.html" class="black-text">restaurantes</a></li>
+        <li class="movido"><a href="/restaurantes " class="black-text">Restaurantes</a></li>
+        <li class="movido"><a href="/personal" class="black-text">Personal</a></li>
       </ul>
     </div>
   </nav>
@@ -40,26 +38,15 @@
         </thead>
 
         <tbody>
+          {%for i in restaurantes%}
           <tr>
-              <td><a href="decision.html">Señor Pesca´o</a></td>
-            <td>Cesar Madera</td>
-            <td>Jiron, Avenida Manuel Cipriano Dulanto 635, Pueblo Libre 15084</td>
-              <td>963 751 270</td>
-
-          </tr>
-          <tr>
-              <td><a href="decision.html">La Baguette</a></td>
-            <td>Alejandro Goinochea</td>
-              <td>Av. Gral. Salaverry 3134, Magdalena del Mar 15076</td>
-            <td>(01) 7155041</td>
-
-          </tr>
-          <tr>
-              <td><a href="decision.html">La Antojeria</a></td>
-            <td>Estefano Huirtele</td>
-            <td> Av. Angamos Oeste 691, Miraflores 15074</td>
-              <td>(01) 4442037</td>
-          </tr>
+            <td>{{i.name}}</td>
+            <td>{{i.owner}}</td>
+            <td>{{i.address}}</td>
+            <td>{{i.phone_number}}</td>
+            <td><a href="{{i.id}}">Menu</a></td>
+          {%endfor%}
+        </tr>
         </tbody>
       </table>
       </div>
@@ -71,4 +58,3 @@
 </body>
 
 </html>
-

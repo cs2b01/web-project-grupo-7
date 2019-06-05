@@ -12,9 +12,10 @@
 <body background="/static/images/background.jpg" class="hola">
     <nav>
     <div class="nav-wrapper white ">
-      <a href="/home.html" class="brand-logo black-text">Nombre de restaurante</a>
+      <a href="/home" class="brand-logo black-text">Home</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li class="movido"><a href="/restaurantes.html" class="black-text">restaurantes</a></li>
+        <li class="movido"><a href="/restaurantes" class="black-text">Restaurantes</a></li>
+        <li class="movido"><a href="/personal" class="black-text">Personal</a></li>
       </ul>
     </div>
   </nav>
@@ -29,35 +30,19 @@
               <th>Nombre</th>
               <th>Apellido</th>
               <th>Puesto</th>
-              <th>Restaurant actual</th>
+              <th>Restaurante actual</th>
           </tr>
         </thead>
 
         <tbody>
+          {%for i in employees%}
           <tr>
-            <td>Cesar</td>
-            <td>Madera</td>
-            <td>Chef</td>
-              <td>Jesus Maria</td>
-          </tr>
-          <tr>
-            <td>Alejandro</td>
-            <td>Goinochea</td>
-              <td>Mesero</td>
-            <td>Miraflores</td>
-          </tr>
-          <tr>
-            <td>Estefano</td>
-            <td>Huirtele</td>
-            <td>Cajero</td>
-              <td>Chorrillos</td>
-          </tr>
-        <tr>
-            <td>Jesus</td>
-            <td>Bellido</td>
-            <td>Gerente</td>
-            <td>Chorrillos</td>
-          </tr>
+            <td>{{i.name}}</td>
+            <td>{{i.lastname}}</td>
+            <td>{{i.position}}</td>
+            <td><a href="/restaurantes/{{i.restaurant_id}}">{{i.restaurant.name}}</a></td>
+          {%endfor%}
+        </tr>
         </tbody>
       </table>
       </div>

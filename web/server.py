@@ -12,7 +12,7 @@ app = Flask(__name__)
 def static_content(content):
     return render_template(content)
 
-@app.route("/index/")
+@app.route("/index")
 def main():
     return render_template('index.html')
 
@@ -23,17 +23,20 @@ def home():
 @app.route("/restaurantes/")
 def restaurantes():
     db_session = db.getSession(engine)
-    restaurantes = db_session.query(entities.Restaurant.name).all()
+    restaurantes = db_session.query(entities.Restaurant).all()
     return render_template('restaurantes.html', restaurantes=restaurantes)
 
-@app.route("/restaurantes/<id>/menu")
+@app.route("/personal/")
+def personal():
+    db_session = db.getSession(engine)
+    employees = db_session.query(entities.Employee).all()
+    return render_template('personal.html', employees=employees)
+
+@app.route("/restaurantes/<id>")
 def menu(id):
-    return render_template('menu.html')
-
-
-@app.route("/restaurantes/<id>/personal")
-def personal(id):
-    return render_template('personal.html')
+    db_session = db.getSession(engine)
+    plates = db_session.query(entities.Plate).filter_by(restaurant_id=id).all()
+    return render_template('menu.html',plates=plates)
 
 
 #CRUD--------------------------------------------------------------------------
