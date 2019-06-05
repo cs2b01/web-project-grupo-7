@@ -50,6 +50,6 @@ $(function(){
                     }),
                     displayExpr: "id"
                 }
-      }, ]
+        }, ]
     }).dxDataGrid("instance");
 });

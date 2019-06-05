@@ -50,7 +50,7 @@ $(function(){
                             ajaxOptions.xhrFields = { withCredentials: true };
                         }
                     }),
-                    displayExpr: "id"
+                    displayExpr: "name"
                 }
       }, ]
     }).dxDataGrid("instance");

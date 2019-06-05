@@ -17,7 +17,7 @@ class Plate(connector.Manager.Base):
     ingredients = Column(String(12))
     price = Column(String(120))
     restaurant_id = Column(Integer, ForeignKey('restaurants.id'))
-    restaurant = relationship(Restaurant)
+    restaurant = relationship(Restaurant, foreign_keys=[restaurant_id])
 
 class Employee(connector.Manager.Base):
     __tablename__ = 'employers'
@@ -26,4 +26,4 @@ class Employee(connector.Manager.Base):
     lastname = Column(String(12), nullable=False)
     position = Column(String(12), nullable=False)
     restaurant_id = Column(Integer, ForeignKey('restaurants.id'))
-    restaurant = relationship(Restaurant)
+    restaurant = relationship(Restaurant, foreign_keys=[restaurant_id])

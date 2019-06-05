@@ -15,11 +15,9 @@ def static_content(content):
 @app.route("/index")
 def main():
     return render_template('index.html')
-
 @app.route("/")
 def home():
     return render_template('home.html')
-
 @app.route("/restaurantes/")
 def restaurantes():
     db_session = db.getSession(engine)
@@ -73,7 +71,7 @@ def update_plate():
         try:
             setattr(plate, key, c[key])
         except AttributeError:
-            setattr(plate,'restaurant_id',c['restaurant']['name']['id'])
+            setattr(plate,'restaurant_id', c['restaurant']['name']['id'])
     session.add(plate)
     session.commit()
     return 'Plate updated'
