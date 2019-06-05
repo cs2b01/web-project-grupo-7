@@ -1,0 +1,11 @@
+.espaciado{
+    padding: 0px 0px 4% 0px;
+}
+body {
+
+    -o-background-size:100% 100%;             /*  Opera  */
+    -webkit-background-size:100% 100%;        /*  Safari  */
+    -khtml-background-size:100% 100%;         /*  Konqueror  */
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+	}
