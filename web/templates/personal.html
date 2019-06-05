@@ -2,17 +2,27 @@
 <head>
     <title>Pagina Home</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="styles.css">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <style type="text/css">
+
+body {
+
+    -o-background-size:100% 100%;             /*  Opera  */
+    -webkit-background-size:100% 100%;        /*  Safari  */
+    -khtml-background-size:100% 100%;         /*  Konqueror  */
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+	}
+</style>
 </head>
 <body background="/static/images/background.jpg" class="hola">
     <nav>
     <div class="nav-wrapper white ">
-      <a href="/home" class="brand-logo black-text">Home</a>
+      <a href="/" class="brand-logo black-text">Home</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li class="movido"><a href="/restaurantes" class="black-text">Restaurantes</a></li>
         <li class="movido"><a href="/personal" class="black-text">Personal</a></li>

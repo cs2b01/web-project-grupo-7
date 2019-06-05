@@ -1,6 +1,5 @@
-.espaciado{
-    padding: 0px 0px 4% 0px;
-}
+<style type="text/css">
+
 body {
 
     -o-background-size:100% 100%;             /*  Opera  */
@@ -9,3 +8,4 @@ body {
     background-repeat:no-repeat;
     background-attachment:fixed;
 	}
+</style>
