@@ -1,3 +1,74 @@
 {%for i in restaurantes%}
 <p>{{i[0]}}</p>
 {%endfor%}
+<html lang="en">
+<head>
+    <title>Pagina Home</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+<body background="/static/images/background.jpg" class="hola">
+    <nav>
+    <div class="nav-wrapper white ">
+      <a href="/home.html" class="brand-logo black-text">Nombre de restaurante</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li class="movido"><a href="/restaurantes.html" class="black-text">restaurantes</a></li>
+      </ul>
+    </div>
+  </nav>
+    <br/>
+    <br/>
+
+<div class="row   ">
+        <div class="col s1 "></div>
+      <div class="col s10 cyan accent-3">
+          <h3>Restaurantes</h3>
+        <table class="responsive-table striped">
+        <thead>
+          <tr>
+              <th>Nombre</th>
+              <th>Dueño</th>
+              <th>Direccion</th>
+              <th>Contacto</th>
+
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+              <td><a href="decision.html">Señor Pesca´o</a></td>
+            <td>Cesar Madera</td>
+            <td>Jiron, Avenida Manuel Cipriano Dulanto 635, Pueblo Libre 15084</td>
+              <td>963 751 270</td>
+
+          </tr>
+          <tr>
+              <td><a href="decision.html">La Baguette</a></td>
+            <td>Alejandro Goinochea</td>
+              <td>Av. Gral. Salaverry 3134, Magdalena del Mar 15076</td>
+            <td>(01) 7155041</td>
+
+          </tr>
+          <tr>
+              <td><a href="decision.html">La Antojeria</a></td>
+            <td>Estefano Huirtele</td>
+            <td> Av. Angamos Oeste 691, Miraflores 15074</td>
+              <td>(01) 4442037</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+
+    </div>
+
+
+</body>
+
+</html>
+
