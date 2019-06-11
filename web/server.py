@@ -5,6 +5,7 @@ import json
 
 db = connector.Manager()
 engine = db.createEngine()
+cache=[[],[],[],[],[],[]]
 
 app = Flask(__name__)
 
@@ -20,15 +21,23 @@ def home():
     return render_template('home.html')
 @app.route("/restaurantes/")
 def restaurantes():
-    db_session = db.getSession(engine)
-    restaurantes = db_session.query(entities.Restaurant).all()
-    return render_template('restaurantes.html', restaurantes=restaurantes)
+    if (len(cache[1])==0):
+        db_session = db.getSession(engine)
+        restaurantes = db_session.query(entities.Restaurant).all()
+        cache[1]=restaurantes
+        return render_template('restaurantes.html', restaurantes=restaurantes)
+    else:
+        return render_template('restaurantes.html', restaurantes=cache[1])
 
 @app.route("/personal/")
 def personal():
-    db_session = db.getSession(engine)
-    employees = db_session.query(entities.Employee).order_by(entities.Employee.restaurant_id.asc())
-    return render_template('personal.html', employees=employees)
+    if(len(cache[2])==0):
+        db_session = db.getSession(engine)
+        employees = db_session.query(entities.Employee).order_by(entities.Employee.restaurant_id.asc()).all()
+        cache[2]=employees
+        return render_template('personal.html', employees=employees)
+    else:
+        return render_template('personal.html', employees=cache[2])
 
 @app.route("/restaurantes/<id>")
 def menu(id):
@@ -37,14 +46,23 @@ def menu(id):
     return render_template('menu.html',plates=plates)
 
 
+
+
 #CRUD--------------------------------------------------------------------------
 
 @app.route('/plates', methods = ['GET'])
 def get_plate():
-    session = db.getSession(engine)
-    dbResponse = session.query(entities.Plate)
-    data = dbResponse[:]
-    return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
+    global cache
+    if (len(cache[0])==0):
+        session = db.getSession(engine)
+        dbResponse = session.query(entities.Plate)
+        data = dbResponse[:]
+        cache[0]=(json.dumps(data, cls=connector.AlchemyEncoder))
+        return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
+    else:
+        return Response(cache[0], mimetype='application/json')
+
+
 
 @app.route('/plates', methods = ['POST'])
 def create_plate():
@@ -89,10 +107,14 @@ def delete_plates():
 
 @app.route('/restaurants', methods = ['GET'])
 def get_restaurant():
-    session = db.getSession(engine)
-    dbResponse = session.query(entities.Restaurant)
-    data = dbResponse[:]
-    return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
+    if (len(cache[1])==0):
+        session = db.getSession(engine)
+        dbResponse = session.query(entities.Restaurant)
+        data = dbResponse[:]
+        cache[1]=data
+        return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
+    else:
+        return Response(cache[1], mimetype='application/json')
 
 @app.route('/restaurants', methods = ['POST'])
 def create_restaurant():
@@ -134,10 +156,14 @@ def delete_restaurant():
 
 @app.route('/employees', methods = ['GET'])
 def get_employee():
-    session = db.getSession(engine)
-    dbResponse = session.query(entities.Employee)
-    data = dbResponse[:]
-    return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
+    if (len(cache[2])==0):
+        session = db.getSession(engine)
+        dbResponse = session.query(entities.Employee)
+        data = dbResponse[:]
+        cache[2]=data
+        return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
+    else:
+        return Response(cache[2], mimetype='application/json')
 
 @app.route('/employees', methods = ['POST'])
 def create_employee():
@@ -177,6 +203,17 @@ def delete_employee():
     session.delete(employee)
     session.commit()
     return "Deleted Plate"
+
+
+@app.route('/personal', methods = ['GET'])
+def get_personal():
+    session = db.getSession(engine)
+    dbResponse = session.query(entities.Plate)
+    data = dbResponse[:]
+    return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
+
+
+
 
 if __name__ == '__main__':
     app.secret_key = ".."
