@@ -2,12 +2,14 @@ from flask import Flask,render_template, request, session, Response, redirect, u
 from database import connector
 from model import entities
 import json
+from flask_cors import CORS
 
 db = connector.Manager()
 engine = db.createEngine()
 cache=[[],[],[],[],[],[]]
 
 app = Flask(__name__)
+CORS(app, supports_credentials=True)
 
 @app.route('/static/<content>', methods=['GET','POST','PUT','DELETE'])
 def static_content(content):
@@ -200,6 +202,8 @@ def get_personal():
     return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
 
 
-
+if __name__ == '__main__':
+    app.secret_key = ".."
+    app.run(port=8080, threaded=True, host=('plataformas.heroku'))
 
 
