@@ -18,9 +18,11 @@ def static_content(content):
 @app.route("/index")
 def main():
     return render_template('index.html')
+
 @app.route("/")
 def home():
     return render_template('home.html')
+
 @app.route("/restaurantes/")
 def restaurantes():
     if (len(cache[1])==0):
@@ -105,8 +107,11 @@ def delete_plates():
 def get_restaurant():
         session = db.getSession(engine)
         dbResponse = session.query(entities.Restaurant)
-        data = dbResponse[:]
-        return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
+        data = []
+        for data in dbResponse:
+            data.append(user)
+        message = {'data':data}
+        return Response(json.dumps(message, cls=connector.AlchemyEncoder), mimetype='application/json')
 
 @app.route('/restaurants', methods = ['POST'])
 def create_restaurant():
@@ -201,9 +206,25 @@ def get_personal():
     data = dbResponse[:]
     return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
 
+@app.route('/authenticate', methods = ["POST"])
+def authenticate():
+    message = json.loads(request.data)
+    username = message['username']
+    password = message['password']
+    db_session = db.getSession(engine)
+    try:
+        user = db_session.query(entities.User
+            ).filter(entities.User.username == username
+            ).filter(entities.User.password == password
+            ).one()
+        session['logged_user'] = user.id
+        message = {'message': 'Authorized', 'user_id': user.id, 'username': user.username}
+        return Response(json.dumps(message,cls=connector.AlchemyEncoder), status=200, mimetype='application/json')
+    except Exception:
+        message = {'message': 'Unauthorized'}
+        return Response(message, status=401, mimetype='application/json')
+
 
 if __name__ == '__main__':
     app.secret_key = ".."
-    app.run(port=8080, threaded=True, host=('plataformas.heroku'))
-
-
+    app.run(port=8080, threaded=True, host=('127.0.0.1'))

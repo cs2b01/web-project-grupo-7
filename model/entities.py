@@ -27,3 +27,11 @@ class Employee(connector.Manager.Base):
     position = Column(String(12), nullable=False)
     restaurant_id = Column(Integer, ForeignKey('restaurants.id'))
     restaurant = relationship(Restaurant, foreign_keys=[restaurant_id])
+
+class User(connector.Manager.Base):
+    __tablename__ = 'users'
+    id = Column(Integer, Sequence('user_id_seq'), primary_key=True)
+    password = Column(String(12))
+    username = Column(String(12))
+    employee_id = Column(Integer, ForeignKey('employers.id'))
+    employee = relationship(Employee)
